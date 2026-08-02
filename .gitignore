@@ -36,4 +36,4 @@ Thumbs.db
 .vscode/
 
 # other files
-files
+gcp_setting.ps1

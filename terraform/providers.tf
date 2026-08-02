@@ -7,6 +7,11 @@ terraform {
       version = "~> 5.0"
     }
   }
+  # remote backend（GCS）
+  backend "gcs" {
+    bucket = "gcp-practice-504123-tfstate"
+    prefix = "terraform/state"
+  }
 }
 
 provider "google" {
