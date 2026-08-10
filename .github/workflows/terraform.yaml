@@ -26,6 +26,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # デバッグ用：値が正しく読み込めているか確認
+      - name: Debug Variables
+        run: |
+          echo "SA_EMAIL length: ${#SA_EMAIL}"
+          echo "PROVIDER length: ${#PROVIDER}"
+        env:
+          SA_EMAIL: ${{ vars.GCP_SA_EMAIL }}
+          PROVIDER: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+
       # 2. Google への認証 (Workload Identity)
       - name: Authenticate to Google Cloud
         id: auth
