@@ -41,7 +41,7 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           create_credentials_file: true
-          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ vars.GCP_SA_EMAIL }}
 
       # 3. Terraform CLI のセットアップ
