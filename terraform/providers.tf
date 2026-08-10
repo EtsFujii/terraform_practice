@@ -9,7 +9,7 @@ terraform {
   }
   # リモートバックエンド（GCS）の設定を追加
   backend "gcs" {
-    bucket = "var.bucket"
+    bucket = "gcp-practice-504123-tfstate"
     prefix = "terraform/state"
   }
 }
