@@ -32,7 +32,7 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: ${{ vars.GCP_SA_EMAIL }}
+          service_account: ${{ secrets.GCP_SA_EMAIL }}
 
       # 3. Terraform CLI のセットアップ
       - name: Setup Terraform
