@@ -42,6 +42,7 @@ jobs:
         with:
           workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ vars.GCP_SA_EMAIL }}
+          token_format: 'access_token'
 
       # 3. Terraform CLI のセットアップ
       - name: Setup Terraform
