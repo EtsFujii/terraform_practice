@@ -104,4 +104,6 @@ jobs:
       # 7. Apply (main ブランチへの Push / Merge 時のみ実行)
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        env:
+          TF_VAR_project_id: ${{ vars.GCP_PROJECT_ID }}
         run: terraform apply -auto-approve -input=false
