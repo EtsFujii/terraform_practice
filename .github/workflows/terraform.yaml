@@ -26,13 +26,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # デバッグ用：値が正しく読み込めているか確認
+      - name: Debug Variables
+        run: |
+          echo "SA_EMAIL length: ${#SA_EMAIL}"
+          echo "PROVIDER length: ${#PROVIDER}"
+        env:
+          SA_EMAIL: ${{ vars.GCP_SA_EMAIL }}
+          PROVIDER: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+
       # 2. Google への認証 (Workload Identity)
       - name: Authenticate to Google Cloud
         id: auth
         uses: google-github-actions/auth@v2
         with:
+          create_credentials_file: true
           workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ vars.GCP_SA_EMAIL }}
+          token_format: 'access_token'
+          access_token_scopes: 'https://www.googleapis.com/auth/cloud-platform'
 
       # 3. Terraform CLI のセットアップ
       - name: Setup Terraform
@@ -57,6 +69,8 @@ jobs:
       - name: Terraform Plan
         id: plan
         if: github.event_name == 'pull_request'
+        env:
+          TF_VAR_project_id: ${{ vars.GCP_PROJECT_ID }}
         run: terraform plan -no-color -input=false
         continue-on-error: true
 
